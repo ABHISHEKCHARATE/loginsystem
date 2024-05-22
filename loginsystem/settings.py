@@ -77,11 +77,11 @@ WSGI_APPLICATION = 'loginsystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'summary',
-        'USER': 'abhi',
-        'PASSWORD': '123',
-        'HOST': 'localhost',  # Or your PostgreSQL host
-        'PORT': '5432',       # Or your PostgreSQL port
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'NfsEUNjawHwSrTGFKJtbTidiwVardCoN',
+        'HOST': 'roundhouse.proxy.rlwy.net',  # Or your PostgreSQL host
+        'PORT': '55887',       # Or your PostgreSQL port
     }
 }
 
