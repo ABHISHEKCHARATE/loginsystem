@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Summary</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        h1, h2 {
+            color: #007bff;
+        }
+
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        select, input[type="file"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            margin-bottom: 15px;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #007bff;
+            color: #fff;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        #summarySection {
+            margin-top: 20px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Text Summary</h1>
+        <!-- Form section -->
+        <div>
+            <h2>Input</h2>
+            <form id="inputForm" method="POST" enctype="multipart/form-data" action="{% url 'text_summary' %}">
+                {% csrf_token %}
+                <!-- Input type selection -->
+                <label for="inputType">Select input type:</label>
+                <select id="inputType" onchange="toggleInput()" name="inputType">
+                    <option value="pdf">PDF</option>
+                    <option value="text">Text</option>
+                </select><br>
+                <!-- PDF input -->
+                <div id="pdfInput" style="display: none;">
+                    <label for="pdfFile">Upload PDF:</label>
+                    <input type="file" id="pdfFile" name="pdfFile">
+                </div>
+                <!-- Text input -->
+                <div id="textInput" style="display: none;">
+                    <label for="textInput">Enter Text:</label><br>
+                    <textarea id="textInput" name="textInput" rows="4" cols="50"></textarea>
+                </div>
+                <!-- Submit button -->
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+        <!-- Summary section -->
+        <div id="summarySection" style="display: none;">
+            <h2>Summary</h2>
+            <div id="summary"></div>
+        </div>
+    </div>
+    <script>
+        function toggleInput() {
+            var inputType = document.getElementById("inputType").value;
+            var pdfInput = document.getElementById("pdfInput");
+            var textInput = document.getElementById("textInput");
+            if (inputType === "pdf") {
+                pdfInput.style.display = "block";
+                textInput.style.display = "none";
+            } else {
+                pdfInput.style.display = "none";
+                textInput.style.display = "block";
+            }
+        }
+    </script>
+</body>
+</html>
