@@ -16,7 +16,6 @@
 #     password = forms.CharField(widget=forms.PasswordInput)
  
 
-# forms.py
 
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
