@@ -10,7 +10,6 @@ from loginsystem.ml_text_summary import extract_text_from_pdf, generate_summary
 def index(request):
     return render(request, 'index.html')
 
-
 def user_signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
@@ -18,7 +17,7 @@ def user_signup(request):
             try:
                 user = form.save()
                 login(request, user)  # Log the user in after successful signup
-                return redirect('dashboard')  # Change this to wherever you want to redirect after signup
+                return redirect('dashboards')  # Redirect to dashboards
             except Exception as e:
                 return HttpResponse(f"Error saving user: {str(e)}")
         else:
@@ -40,7 +39,7 @@ def user_login(request):
                 if user.is_staff or user.is_superuser:
                     return HttpResponse("Admin users cannot log in from here.")
                 login(request, user)
-                return redirect('dashboards')  # Change this to wherever you want to redirect after login
+                return redirect('dashboards')  # Redirect to dashboards
             else:
                 form.add_error(None, 'Invalid username or password')
     else:
@@ -53,7 +52,6 @@ def user_logout(request):
 
 def dashboards(request):
     return render(request, 'dashboards.html')
-
 
 
 def text_summary(request):
