@@ -9,9 +9,13 @@ https://docs.djangoproject.com/en/4.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
-import os
 
+import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from a .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -22,14 +26,12 @@ AUTH_USER_MODEL = 'app_login.CustomUser'
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-ofm^p9rhgu4x&=ssl*c6u427&__^epvy@68a_a=%n$k-=jyte='
+SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ofm^p9rhgu4x&=ssl*c6u427&__^epvy@68a_a=%n$k-=jyte=')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.getenv('DEBUG', 'True') == 'True'
 
-
-ALLOWED_HOSTS = ['.vercel.app', '*']
-
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '.vercel.app,*').split(',')
 
 # Application definition
 
@@ -58,7 +60,7 @@ ROOT_URLCONF = 'loginsystem.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR/ "templates"],
+        'DIRS': [BASE_DIR / "templates"],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -73,20 +75,16 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'loginsystem.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'railway',
-        'USER': 'postgres',
-        'PASSWORD': 'aJqZUIUPdsJSqhRiieMVftHOYEbDIklt',
-        'HOST': 'roundhouse.proxy.rlwy.net',  # Or your PostgreSQL host
-        'PORT': '36222',       # Or your PostgreSQL port
+        'NAME': os.getenv('DB_NAME', 'railway'),
+        'USER': os.getenv('DB_USER', 'postgres'),
+        'PASSWORD': os.getenv('DB_PASSWORD', 'aJqZUIUPdsJSqhRiieMVftHOYEbDIklt'),
+        'HOST': os.getenv('DB_HOST', 'roundhouse.proxy.rlwy.net'),
+        'PORT': os.getenv('DB_PORT', '36222'),
     }
 }
-
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -106,7 +104,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/4.2/topics/i18n/
 
@@ -118,20 +115,19 @@ USE_I18N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-
-
 STATIC_URL = 'static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
-MEDIA_URLS ='/media/'
+
+MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 

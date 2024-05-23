@@ -5,16 +5,13 @@ from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponse, JsonResponse
 from .form import SignupForm, LoginForm  # Ensure you import forms correctly
 from loginsystem.ml_text_summary import extract_text_from_pdf, generate_summary
+
 from django.contrib.auth.decorators import login_required
 
-@login_required
+
 def index(request):
-    if request.user.is_superuser or request.user.is_staff:
-        # Admin user, render admin dashboard template
-        return render(request, 'admin_dashboard.html')
-    else:
-        # Regular user, render regular home page template
-        return render(request, 'index.html')
+    # Ensure the index page does not show admin information
+    return render(request, 'index.html')
 
 def user_signup(request):
     if request.method == 'POST':
