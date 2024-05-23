@@ -7,6 +7,7 @@ from .form import SignupForm, LoginForm  # Ensure you import forms correctly
 from loginsystem.ml_text_summary import extract_text_from_pdf, generate_summary
 
 
+
 def index(request):
     return render(request, 'index.html')
 
