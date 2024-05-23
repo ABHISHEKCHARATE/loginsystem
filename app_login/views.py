@@ -40,7 +40,7 @@ def user_login(request):
                 if user.is_staff or user.is_superuser:
                     return HttpResponse("Admin users cannot log in from here.")
                 login(request, user)
-                return redirect('dashboard')  # Change this to wherever you want to redirect after login
+                return redirect('dashboards')  # Change this to wherever you want to redirect after login
             else:
                 form.add_error(None, 'Invalid username or password')
     else:
