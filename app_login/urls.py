@@ -1,6 +1,6 @@
 from django.urls import path
 from . import views
-
+from django.contrib import admin
 urlpatterns = [
     path('', views.index, name='home'),
     path('login/', views.user_login, name='login'),
@@ -9,7 +9,7 @@ urlpatterns = [
     path('dashboards/', views.dashboards, name='dashboards'),
     path('logout/', views.user_logout, name='logout'),
     path('text_summary',views.text_summary,name = "text_summary"),
-    path('summary.html',views.summary,name='summary'),
-    
+    path('summary.html',views.summary,name='summary'),  
+    path('admin/', admin.site.urls),
 
 ]
