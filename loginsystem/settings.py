@@ -10,12 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
-import os
 from pathlib import Path
-from dotenv import load_dotenv
-
-# Load environment variables from a .env file
-load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,12 +21,12 @@ AUTH_USER_MODEL = 'app_login.CustomUser'
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-ofm^p9rhgu4x&=ssl*c6u427&__^epvy@68a_a=%n$k-=jyte=')
+SECRET_KEY = 'django-insecure-ofm^p9rhgu4x&=ssl*c6u427&__^epvy@68a_a=%n$k-=jyte='
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG', 'True') == 'True'
+DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS', '.vercel.app,*').split(',')
+ALLOWED_HOSTS = ['.vercel.app', '*']
 
 # Application definition
 
@@ -78,11 +73,11 @@ WSGI_APPLICATION = 'loginsystem.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME', 'railway'),
-        'USER': os.getenv('DB_USER', 'postgres'),
-        'PASSWORD': os.getenv('DB_PASSWORD', 'slYnmUlolWpUCnvpIMpyREhYvnUahpvl'),
-        'HOST': os.getenv('DB_HOST', 'monorail.proxy.rlwy.net'),
-        'PORT': os.getenv('DB_PORT', '18921'),
+        'NAME': 'railway',
+        'USER': 'postgres',
+        'PASSWORD': 'slYnmUlolWpUCnvpIMpyREhYvnUahpvl',
+        'HOST': 'monorail.proxy.rlwy.net',
+        'PORT': '18921',
     }
 }
 
@@ -119,12 +114,12 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles_build', 'static')
+STATIC_ROOT = BASE_DIR / 'staticfiles_build' / 'static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
 
-STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+STATICFILES_DIRS = [BASE_DIR / 'static']
 
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
