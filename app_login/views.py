@@ -10,15 +10,21 @@ from loginsystem.ml_text_summary import extract_text_from_pdf, generate_summary
 def index(request):
     return render(request, 'index.html')
 
+
 def user_signup(request):
     if request.method == 'POST':
         form = SignupForm(request.POST)
         if form.is_valid():
-            user = form.save()
-            login(request, user)  # Log the user in after successful signup
-            return redirect('dashboard')  # Change this to wherever you want to redirect after signup
+            try:
+                user = form.save()
+                login(request, user)  # Log the user in after successful signup
+                return redirect('dashboard')  # Change this to wherever you want to redirect after signup
+            except Exception as e:
+                return HttpResponse(f"Error saving user: {str(e)}")
         else:
-            return HttpResponse("Form is not valid. Please ensure all fields are correctly filled.")
+            # Display detailed form errors
+            errors = form.errors.as_json()
+            return HttpResponse(f"Form is not valid. Please ensure all fields are correctly filled. Errors: {errors}")
     else:
         form = SignupForm()
     return render(request, 'signup.html', {'form': form})

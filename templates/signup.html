@@ -108,6 +108,11 @@
         form a:hover {
             text-decoration: underline;
         }
+        .error-list {
+            color: red;
+            list-style: none;
+            padding-left: 0;
+        }
     </style>
 </head>
 <body>
@@ -123,6 +128,14 @@
         
         <button type="submit">Signup</button>
         <a href="{% url 'login' %}">Already have an account?</a>
+        
+        {% if form.errors %}
+            <ul class="error-list">
+                {% for field, errors in form.errors.items %}
+                    <li>{{ field }}: {{ errors|escape }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </form>
 </body>
 </html>
